@@ -17,6 +17,7 @@
   "author": "Jose Corredor <jose.corrzaDeveloper@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   },

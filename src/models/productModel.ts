@@ -1,7 +1,8 @@
 import {BaseModel} from './baseModel';
 import {Category} from './categoryModel';
-
-export interface Product extends BaseModel {
+//extends BaseModel
+export interface Product  {
+    id: number,
     title: string;
     price: number;
     description: string;
@@ -12,7 +13,7 @@ export interface Product extends BaseModel {
 //DTOs
 
 export interface CreateProduct extends Omit<Product, 'id' | 'category'>{
-    category: Category['id']
+    category: Category
 }
 
 export interface UpdateProduct extends Partial<CreateProduct>{}
