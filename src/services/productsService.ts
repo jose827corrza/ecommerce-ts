@@ -32,36 +32,41 @@ export class ProductService {
         }
     }
 
-    async createProduct(data: CreateProduct): Promise<Product>{
-        const newProduct = {
-            ...data,
-            id: faker.datatype.number()
-        }
-        this.products.push(newProduct);
-        return newProduct;
+    async createProduct(productData: CreateProduct): Promise<Product>{
+        // const newProduct = {
+        //     ...data,
+        //     id: faker.datatype.number()
+        // }
+        // this.products.push(newProduct);
+        // return newProduct;
+        const {data} = await axios.post<Product>('https://api.escuelajs.co/api/v1/products',productData);
+        return data;
     }
 
     async getProducts(): Promise<Product[]>{
-        return this.products;
+        const {data} = await axios.get<Product[]>('https://api.escuelajs.co/api/v1/products');
+        return data
+        //return this.products;
     }
 
     async getProduct(productId: Product['id']): Promise<Product | undefined>{
-        // const {data} = await axios.get<Product>(`https://api.escuelajs.co/api/v1/products/${productId}`)
-        // return data;
-        //const product = this.products[1];
-        const product = this.products.find(item => item.id == productId);
+        const {data} = await axios.get<Product>(`https://api.escuelajs.co/api/v1/products/${productId}`)
+        return data;
+        //const product = this.products.find(item => item.id == productId);
         
-        return product;
+        //return product;
     }
 
-    async updateProduct(productId: Product['id'], changes: UpdateProduct): Promise<Product>{
-        const index = await this.products.findIndex(item => item.id == productId)
-        const product = this.products[index]
-        this.products[index] = {
-            ... product,
-            ... changes
-        }
-        return this.products[index];
+    async updateProduct(productId: Product['id'], changes: UpdateProduct){
+        // const index = await this.products.findIndex(item => item.id == productId)
+        // const product = this.products[index]
+        // this.products[index] = {
+        //     ... product,
+        //     ... changes
+        // }
+        // return this.products[index];
+        const {data} = await axios.put<Product>(`https://api.escuelajs.co/api/v1/products/${productId}`, changes);
+        return data;
     }
 
     async deleteProduct(productId: Product['id']): Promise<Product>{
